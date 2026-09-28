@@ -2,4 +2,8 @@ gymnasium[classic-control]>=1.1
 torch
 numpy
 matplotlib
+stable-baselines3>=2.6
+tqdm
+rich
 ipykernel
+ipywidgets
