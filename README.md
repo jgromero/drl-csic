@@ -10,10 +10,11 @@ Los algoritmos se implementan desde cero con NumPy y PyTorch.
 | Notebook | Algoritmo | Entorno | Colab |
 |---|---|---|---|
 | [cliffwalking-qlearning.ipynb](code/from-scratch/cliffwalking-qlearning.ipynb) | Q-Learning (tabular) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/from-scratch/cliffwalking-qlearning.ipynb) |
+| [cliffwalking-dqn.ipynb](code/from-scratch/cliffwalking-dqn.ipynb) | Deep Q-Learning (DQN) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/from-scratch/cliffwalking-dqn.ipynb) |
 | [cartpole-dqn.ipynb](code/from-scratch/cartpole-dqn.ipynb) | Deep Q-Learning (DQN) | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/from-scratch/cartpole-dqn.ipynb) |
 | [cartpole-reinforce.ipynb](code/from-scratch/cartpole-reinforce.ipynb) | REINFORCE | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/from-scratch/cartpole-reinforce.ipynb) |
 
-El notebook de DQN usa los módulos [dqn_agent.py](code/from-scratch/dqn_agent.py) (agente) y [model.py](code/from-scratch/model.py) (red Q). En Colab se descargan automáticamente clonando este repositorio.
+Los dos notebooks de DQN usan los mismos módulos [dqn_agent.py](code/from-scratch/dqn_agent.py) (agente) y [model.py](code/from-scratch/model.py) (red Q). En Colab se descargan automáticamente clonando este repositorio.
 
 ### Stable-Baselines3 ([`code/stable-baselines`](code/stable-baselines))
 
