@@ -1,13 +1,13 @@
 {
   "name": "drl-csic",
-  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "image": "mcr.microsoft.com/devcontainers/python:3-3.12-trixie",
 
   // Use the host's NVIDIA GPU when available (requires the NVIDIA Container Toolkit); otherwise run on CPU
   "hostRequirements": {
     "gpu": "optional"
   },
 
-  "postCreateCommand": "pip install --user -r requirements.txt",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
 
   "customizations": {
     "vscode": {
