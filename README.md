@@ -43,15 +43,19 @@ Si el equipo tiene una GPU NVIDIA con el [NVIDIA Container Toolkit](https://docs
 
 ### En local sin contenedor
 
-Con Python 3.10 o superior:
+Con Python 3.12 o superior:
 
 ```bash
 pip install -r requirements.txt
 ```
 
+[`requirements.txt`](requirements.txt) fija las versiones exactas con las que se han probado todos los notebooks.
+
 Los notebooks usan la GPU (CUDA) si está disponible y, si no, la CPU. En Mac con Apple Silicon se ejecutan en CPU: con redes tan pequeñas, la GPU (MPS) es más lenta.
 
-Para ver los entornos en una ventana, cambia `render_mode` a `"human"`.
+### Pruebas automáticas
+
+Una [GitHub Action](.github/workflows/notebooks.yml) ejecuta todos los notebooks de principio a fin (en CPU, con las mismas dependencias que el dev container) en cada cambio del repositorio y una vez por semana, para detectar a tiempo cualquier error o cambio incompatible en las dependencias.
 
 ## Licencia
 
