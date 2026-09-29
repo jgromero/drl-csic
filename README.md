@@ -55,7 +55,7 @@ Los notebooks usan la GPU (CUDA) si está disponible y, si no, la CPU. En Mac co
 
 ### Pruebas automáticas
 
-Una [GitHub Action](.github/workflows/notebooks.yml) ejecuta todos los notebooks de principio a fin (en CPU, con las mismas dependencias que el dev container) en cada cambio del repositorio y una vez por semana, para detectar a tiempo cualquier error o cambio incompatible en las dependencias.
+La [GitHub Action](.github/workflows/notebooks.yml) *Cuadernos* ejecuta todos los notebooks de principio a fin (en CPU, con las mismas dependencias que el dev container). No se ejecuta sola: se lanza a mano desde la pestaña *Actions* de GitHub (*Cuadernos* > *Run workflow*), por ejemplo antes de cada edición del curso.
 
 ## Licencia
 

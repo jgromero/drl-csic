@@ -1,12 +1,9 @@
 # Ejecuta todos los cuadernos de principio a fin para detectar errores
 # o cambios incompatibles en las dependencias.
+# Se lanza a mano desde GitHub: Actions > Cuadernos > Run workflow.
 name: Cuadernos
 
 on:
-  push:
-  pull_request:
-  schedule:
-    - cron: "0 6 * * 1"   # todos los lunes a las 6:00 (UTC)
   workflow_dispatch:
 
 jobs:
