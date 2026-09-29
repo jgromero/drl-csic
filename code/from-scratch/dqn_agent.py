@@ -8,48 +8,48 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 
-BUFFER_SIZE = int(1e5)  # replay buffer size (size D)
-BATCH_SIZE = 64         # minibatch size (n_batch)
-GAMMA = 0.99            # discount factor (gamma)
-TAU = 2e-2              # for soft update of target parameters (tau)
-LR = 5e-4               # learning rate (eta)
-UPDATE_EVERY = 4        # how often to update the target network (C)
+BUFFER_SIZE = int(1e5)  # tamaño de la memoria de experiencias (tamaño D)
+BATCH_SIZE = 64         # tamaño del minilote (n_batch)
+GAMMA = 0.99            # factor de descuento (gamma)
+TAU = 2e-2              # para la actualización suave de los parámetros objetivo (tau)
+LR = 5e-4               # tasa de aprendizaje (eta)
+UPDATE_EVERY = 4        # cada cuántos pasos se actualiza la red objetivo (C)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 class Agent():
-    """Interacts with and learns from the environment."""
+    """Interactúa con el entorno y aprende de él."""
 
     def __init__(self, state_size, action_size, seed):
-        """Initialize an Agent object.
+        """Inicializa un objeto Agent.
         
-        Params
-        ======
-            state_size (int): dimension of each state
-            action_size (int): dimension of each action
-            seed (int): random seed
+        Parámetros
+        ==========
+            state_size (int): dimensión de cada estado
+            action_size (int): dimensión de cada acción
+            seed (int): semilla aleatoria
         """
         self.state_size = state_size
         self.action_size = action_size
         random.seed(seed)
 
-        # Q-Network
+        # Red Q
         self.qnetwork_local = QNetwork(state_size, action_size, seed).to(device)
         self.qnetwork_target = QNetwork(state_size, action_size, seed).to(device)
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
 
-        # Replay memory
+        # Memoria de experiencias
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)
-        # Initialize time step (for updating every UPDATE_EVERY steps)
+        # Inicializar el contador de pasos (para actualizar cada UPDATE_EVERY pasos)
         self.t_step = 0
     
     def act(self, state, eps=0.):
-        """Returns actions for given state as per current policy.
+        """Devuelve la acción para el estado dado según la política actual.
         
-        Params
-        ======
-            state (array_like): current state
-            eps (float): epsilon, for epsilon-greedy action selection
+        Parámetros
+        ==========
+            state (array_like): estado actual
+            eps (float): epsilon, para la selección de acciones ε-greedy
         """
         state = torch.from_numpy(state).float().unsqueeze(0).to(device)
         self.qnetwork_local.eval()
@@ -57,97 +57,97 @@ class Agent():
             action_values = self.qnetwork_local(state)
         self.qnetwork_local.train()
 
-        # Epsilon-greedy action selection
+        # Selección de acciones ε-greedy
         if random.random() > eps:
             return np.argmax(action_values.cpu().data.numpy())
         else:
             return random.choice(np.arange(self.action_size))
         
     def step(self, state, action, reward, next_state, done):
-        """Stores an experience, learns from a mini-batch and, every UPDATE_EVERY steps, updates the target network.
+        """Almacena una experiencia, aprende de un minilote y, cada UPDATE_EVERY pasos, actualiza la red objetivo.
 
-        Params
-        ======
-            state (array_like): current state (St)
-            action (int): action taken (At)
-            reward (float): reward obtained (Rt+1)
-            next_state (array_like): next state (St+1)
-            done (bool): whether St+1 is terminal (do not bootstrap from it)
+        Parámetros
+        ==========
+            state (array_like): estado actual (St)
+            action (int): acción tomada (At)
+            reward (float): recompensa obtenida (Rt+1)
+            next_state (array_like): siguiente estado (St+1)
+            done (bool): si St+1 es terminal (no se hace bootstrapping desde él)
         """
-        # ------------------- store experience in replay memory ----------------------------- #
+        # ------------------- almacenar la experiencia en la memoria ------------------------ #
         self.memory.add(state, action, reward, next_state, done)
 
-        # ------------------- train with mini-batch sample of experiences ------------------- #
+        # ------------------- entrenar con un minilote de experiencias ---------------------- #
         if len(self.memory) > BATCH_SIZE:
-            # If enough samples are available in memory, get random subset and learn
+            # Si hay suficientes muestras en la memoria, obtener un subconjunto aleatorio y aprender
             experiences = self.memory.sample()
             self.learn(experiences, GAMMA)
 
-        # ------------------- update target network ----------------------------------------- #
+        # ------------------- actualizar la red objetivo ------------------------------------ #
         self.t_step = (self.t_step + 1) % UPDATE_EVERY
         if self.t_step == 0:
-            # If C (UPDATE_EVERY) steps have been reached, blend weights to the target network
+            # Si se han alcanzado C (UPDATE_EVERY) pasos, mezclar los pesos en la red objetivo
             self.soft_update(self.qnetwork_local, self.qnetwork_target, TAU)
 
     def learn(self, experiences, gamma):
-        """Update value parameters using given batch of experience tuples.
+        """Actualiza los parámetros de valor con el lote de tuplas de experiencia dado.
 
-        Params
-        ======
-            experiences (Tuple[torch.Tensor]): tuple of (s, a, r, s', done) tuples 
-            gamma (float): discount factor
+        Parámetros
+        ==========
+            experiences (Tuple[torch.Tensor]): tupla de tuplas (s, a, r, s', done) 
+            gamma (float): factor de descuento
         """
         states, actions, rewards, next_states, dones = experiences
 
-        # Get max predicted Q values (for next states) from target model
-        # - qnetwork_target : apply forward pass for the whole mini-batch
-        # - detach : do not backpropagate
-        # - max : get maximizing action for each sample of the mini-batch (dim=1)
-        # - [0].unsqueeze(1) : transform output into a flat array
+        # Obtener los valores Q máximos predichos (para los siguientes estados) con el modelo objetivo
+        # - qnetwork_target : aplicar el paso hacia delante a todo el minilote
+        # - detach : no retropropagar
+        # - max : obtener la acción que maximiza cada muestra del minilote (dim=1)
+        # - [0].unsqueeze(1) : transformar la salida en un vector plano
         Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
 
-        # Compute Q targets for current states (y)
-        # - dones : detect if the episode has finished
+        # Calcular los objetivos Q para los estados actuales (y)
+        # - dones : detectar si el episodio ha terminado
         Q_targets = rewards + (gamma * Q_targets_next * (1 - dones))
 
-        # Get expected Q values from local model (Q(Sj, Aj, w))
-        # - gather : for each sample select only the output value for action Aj
+        # Obtener los valores Q esperados con el modelo local (Q(Sj, Aj, w))
+        # - gather : para cada muestra, seleccionar solo el valor de salida de la acción Aj
         Q_expected = self.qnetwork_local(states).gather(1, actions)
 
-        # Optimize over (yj-Q(Sj, Aj, w))^2
-        # * compute loss
+        # Optimizar (yj-Q(Sj, Aj, w))^2
+        # * calcular la pérdida
         loss = F.mse_loss(Q_expected, Q_targets)
-        # * minimize the loss
+        # * minimizar la pérdida
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
 
     def soft_update(self, local_model, target_model, tau):
-        """Soft update model parameters.
+        """Actualización suave de los parámetros del modelo.
         θ_target = τ*θ_local + (1 - τ)*θ_target
 
-        Params
-        ======
-            local_model (PyTorch model): weights will be copied from
-            target_model (PyTorch model): weights will be copied to
-            tau (float): interpolation parameter 
+        Parámetros
+        ==========
+            local_model (PyTorch model): modelo del que se copiarán los pesos
+            target_model (PyTorch model): modelo al que se copiarán los pesos
+            tau (float): parámetro de interpolación 
         """
         for target_param, local_param in zip(target_model.parameters(), local_model.parameters()):
             target_param.data.copy_(tau*local_param.data + (1.0-tau)*target_param.data)
 
 
 class ReplayBuffer:
-    """Fixed-size buffer to store experience tuples."""
+    """Memoria de tamaño fijo para almacenar tuplas de experiencia."""
 
     def __init__(self, action_size, buffer_size, batch_size, seed):
-        """Initialize a ReplayBuffer object.
+        """Inicializa un objeto ReplayBuffer.
 
-        Params
-        ======
-            action_size (int): dimension of each action
-            buffer_size (int): maximum size of buffer
-            batch_size (int): size of each training batch
-            seed (int): random seed
+        Parámetros
+        ==========
+            action_size (int): dimensión de cada acción
+            buffer_size (int): tamaño máximo de la memoria
+            batch_size (int): tamaño de cada lote de entrenamiento
+            seed (int): semilla aleatoria
         """
         self.action_size = action_size
         self.memory = deque(maxlen=buffer_size)  
@@ -156,12 +156,12 @@ class ReplayBuffer:
         random.seed(seed)
     
     def add(self, state, action, reward, next_state, done):
-        """Add a new experience to memory."""
+        """Añade una nueva experiencia a la memoria."""
         e = self.experience(state, action, reward, next_state, done)
         self.memory.append(e)
     
     def sample(self):
-        """Randomly sample a batch of experiences from memory."""
+        """Muestrea aleatoriamente un lote de experiencias de la memoria."""
         experiences = random.sample(self.memory, k=self.batch_size)
 
         states = torch.from_numpy(np.vstack([e.state for e in experiences if e is not None])).float().to(device)
@@ -173,5 +173,5 @@ class ReplayBuffer:
         return (states, actions, rewards, next_states, dones)
 
     def __len__(self):
-        """Return the current size of internal memory."""
+        """Devuelve el tamaño actual de la memoria interna."""
         return len(self.memory)

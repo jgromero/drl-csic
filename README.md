@@ -9,10 +9,10 @@ Los algoritmos se implementan desde cero con NumPy y PyTorch.
 
 | Notebook | Algoritmo | Entorno | Colab |
 |---|---|---|---|
-| [cliffwalking-qlearning.ipynb](code/from-scratch/cliffwalking-qlearning.ipynb) | Q-Learning (tabular) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/from-scratch/cliffwalking-qlearning.ipynb) |
-| [cliffwalking-dqn.ipynb](code/from-scratch/cliffwalking-dqn.ipynb) | Deep Q-Learning (DQN) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/from-scratch/cliffwalking-dqn.ipynb) |
-| [cartpole-dqn.ipynb](code/from-scratch/cartpole-dqn.ipynb) | Deep Q-Learning (DQN) | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/from-scratch/cartpole-dqn.ipynb) |
-| [cartpole-reinforce.ipynb](code/from-scratch/cartpole-reinforce.ipynb) | REINFORCE | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/from-scratch/cartpole-reinforce.ipynb) |
+| [cliffwalking-qlearning.ipynb](code/from-scratch/cliffwalking-qlearning.ipynb) | Q-Learning (tabular) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/from-scratch/cliffwalking-qlearning.ipynb) |
+| [cliffwalking-dqn.ipynb](code/from-scratch/cliffwalking-dqn.ipynb) | Deep Q-Learning (DQN) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/from-scratch/cliffwalking-dqn.ipynb) |
+| [cartpole-dqn.ipynb](code/from-scratch/cartpole-dqn.ipynb) | Deep Q-Learning (DQN) | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/from-scratch/cartpole-dqn.ipynb) |
+| [cartpole-reinforce.ipynb](code/from-scratch/cartpole-reinforce.ipynb) | REINFORCE | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/from-scratch/cartpole-reinforce.ipynb) |
 
 Los dos notebooks de DQN usan los mismos módulos [dqn_agent.py](code/from-scratch/dqn_agent.py) (agente) y [model.py](code/from-scratch/model.py) (red Q). En Colab se descargan automáticamente clonando este repositorio.
 
@@ -22,8 +22,8 @@ Los mismos problemas, resueltos con las implementaciones de la librería [Stable
 
 | Notebook | Algoritmo | Entorno | Colab |
 |---|---|---|---|
-| [cliffwalking-sb3.ipynb](code/stable-baselines/cliffwalking-sb3.ipynb) | DQN | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/stable-baselines/cliffwalking-sb3.ipynb) |
-| [cartpole-sb3.ipynb](code/stable-baselines/cartpole-sb3.ipynb) | DQN y PPO | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/main/code/stable-baselines/cartpole-sb3.ipynb) |
+| [cliffwalking-sb3.ipynb](code/stable-baselines/cliffwalking-sb3.ipynb) | DQN | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/stable-baselines/cliffwalking-sb3.ipynb) |
+| [cartpole-sb3.ipynb](code/stable-baselines/cartpole-sb3.ipynb) | DQN y PPO | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/stable-baselines/cartpole-sb3.ipynb) |
 
 ## Ejecución
 
