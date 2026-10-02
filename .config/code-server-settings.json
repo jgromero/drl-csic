@@ -1,0 +1,15 @@
+{
+  "python.defaultInterpreterPath": "/opt/venv/bin/python",
+  "keyboard.layout": "autodetect",
+  "jupyter.askForKernelRestart": false,
+  "workbench.startupEditor": "none",
+  "workbench.colorTheme": "Default Dark Modern",
+  "security.workspace.trust.enabled": false,
+  "telemetry.telemetryLevel": "off",
+  "editor.fontSize": 15,
+  "notebook.output.textLineLimit": 100,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.ipynb_checkpoints": true
+  }
+}

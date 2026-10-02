@@ -1,0 +1,16 @@
+services:
+  curso-python:
+    build: .
+    image: curso-python
+    container_name: curso-python
+    ports:
+      # Solo accesible desde este equipo; usar "${PORT:-8080}:8080" para abrirlo a la red
+      - "127.0.0.1:${PORT:-8080}:8080"
+    environment:
+      # Contraseña de acceso obligatoria: PASSWORD=... docker compose up
+      - PASSWORD=${PASSWORD:?Indica la contraseña de acceso con la variable PASSWORD}
+    volumes:
+      # Persiste el trabajo de los notebooks en ./code e ./img del anfitrión
+      - ./code:/home/coder/workspace/code
+      - ./img:/home/coder/workspace/img
+    restart: unless-stopped

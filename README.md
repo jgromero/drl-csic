@@ -7,39 +7,47 @@ Materiales para la parte no presencial de la formación en DRL de Momentum 2026.
 
 Los algoritmos se implementan desde cero con NumPy y PyTorch.
 
-| Notebook | Algoritmo | Entorno | Colab |
-|---|---|---|---|
-| [cliffwalking-qlearning.ipynb](code/from-scratch/cliffwalking-qlearning.ipynb) | Q-Learning (tabular) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/from-scratch/cliffwalking-qlearning.ipynb) |
-| [cliffwalking-dqn.ipynb](code/from-scratch/cliffwalking-dqn.ipynb) | Deep Q-Learning (DQN) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/from-scratch/cliffwalking-dqn.ipynb) |
-| [cartpole-dqn.ipynb](code/from-scratch/cartpole-dqn.ipynb) | Deep Q-Learning (DQN) | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/from-scratch/cartpole-dqn.ipynb) |
-| [cartpole-reinforce.ipynb](code/from-scratch/cartpole-reinforce.ipynb) | REINFORCE | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/from-scratch/cartpole-reinforce.ipynb) |
+| Notebook | Algoritmo | Entorno |
+|---|---|---|
+| [01_cliffwalking-qlearning.ipynb](code/from-scratch/01_cliffwalking-qlearning.ipynb) | Q-Learning (tabular) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) |
+| [02_cliffwalking-dqn.ipynb](code/from-scratch/02_cliffwalking-dqn.ipynb) | Deep Q-Learning (DQN) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) |
+| [03_cartpole-dqn.ipynb](code/from-scratch/03_cartpole-dqn.ipynb) | Deep Q-Learning (DQN) | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) |
+| [04_cartpole-reinforce.ipynb](code/from-scratch/04_cartpole-reinforce.ipynb) | REINFORCE | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) |
 
-Los dos notebooks de DQN usan los mismos módulos [dqn_agent.py](code/from-scratch/dqn_agent.py) (agente) y [model.py](code/from-scratch/model.py) (red Q). En Colab se descargan automáticamente clonando este repositorio.
+Los dos notebooks de DQN usan los mismos módulos [dqn_agent.py](code/from-scratch/dqn_agent.py) (agente) y [model.py](code/from-scratch/model.py) (red Q).
 
 ### Stable-Baselines3 ([`code/stable-baselines`](code/stable-baselines))
 
 Los mismos problemas, resueltos con las implementaciones de la librería [Stable-Baselines3](https://stable-baselines3.readthedocs.io/).
 
-| Notebook | Algoritmo | Entorno | Colab |
-|---|---|---|---|
-| [cliffwalking-sb3.ipynb](code/stable-baselines/cliffwalking-sb3.ipynb) | DQN | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/stable-baselines/cliffwalking-sb3.ipynb) |
-| [cartpole-sb3.ipynb](code/stable-baselines/cartpole-sb3.ipynb) | DQN y PPO | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jgromero/drl-csic/blob/es/code/stable-baselines/cartpole-sb3.ipynb) |
+| Notebook | Algoritmo | Entorno |
+|---|---|---|
+| [05_cliffwalking-sb3.ipynb](code/stable-baselines/05_cliffwalking-sb3.ipynb) | DQN | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) |
+| [06_cartpole-sb3.ipynb](code/stable-baselines/06_cartpole-sb3.ipynb) | DQN y PPO | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) |
 
 ## Ejecución
 
-### Google Colab
+Todos los notebooks se ejecutan en CPU.
 
-Pulsa el botón *Open in Colab* de cada notebook. Funciona tanto con el entorno de ejecución de CPU como con GPU.
+### En el navegador (Docker)
 
-### En local con VS Code (dev container)
+El repositorio incluye una imagen de Docker con [code-server](https://github.com/coder/code-server) (VS Code en el navegador), Python, Jupyter y todas las dependencias:
 
-El repositorio incluye un [dev container](.devcontainer/devcontainer.json) con Python 3.12 y todas las dependencias:
+1. Instala [Docker](https://www.docker.com/).
+2. Desde la carpeta del repositorio, arranca el contenedor indicando una contraseña de acceso:
 
-1. Instala [Docker](https://www.docker.com/) y la extensión [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) de VS Code.
-2. Abre la carpeta del repositorio en VS Code y elige *Reopen in Container*.
-3. Abre un notebook de `code/from-scratch/` o `code/stable-baselines/` y selecciona el kernel de Python del contenedor.
+   ```bash
+   PASSWORD=una-contraseña docker compose up -d --build
+   ```
 
-Si el equipo tiene una GPU NVIDIA con el [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/) instalado, el contenedor la usa automáticamente; si no, se ejecuta en CPU.
+3. Abre <http://localhost:8080> en el navegador e introduce la contraseña.
+4. Abre un notebook de `code/` y selecciona el kernel *Python (curso)*.
+
+Los cambios en los notebooks se guardan en las carpetas `code/` e `img/` del equipo. Para usar otro puerto, añade `PORT=8888` delante del comando. Para detener el contenedor:
+
+```bash
+docker compose down
+```
 
 ### En local sin contenedor
 
@@ -49,13 +57,19 @@ Con Python 3.12 o superior:
 pip install -r requirements.txt
 ```
 
-[`requirements.txt`](requirements.txt) fija las versiones exactas con las que se han probado todos los notebooks.
+[`requirements.txt`](requirements.txt) fija las versiones exactas con las que se han probado todos los notebooks e instala PyTorch solo para CPU.
 
-Los notebooks usan la GPU (CUDA) si está disponible y, si no, la CPU. En Mac con Apple Silicon se ejecutan en CPU: con redes tan pequeñas, la GPU (MPS) es más lenta.
+## Mantenimiento
 
-### Pruebas automáticas
+Las herramientas para mantener el repositorio están en [`requirements-dev.txt`](requirements-dev.txt):
 
-La [GitHub Action](.github/workflows/notebooks.yml) *Cuadernos* ejecuta todos los notebooks de principio a fin (en CPU, con las mismas dependencias que el dev container). No se ejecuta sola: se lanza a mano desde la pestaña *Actions* de GitHub (*Cuadernos* > *Run workflow*), por ejemplo antes de cada edición del curso.
+```bash
+pip install -r requirements-dev.txt
+pre-commit install
+```
+
+- [`pre-commit`](.pre-commit-config.yaml) elimina con `nbstripout` las salidas de los notebooks antes de cada commit.
+- La [GitHub Action](.github/workflows/notebooks.yml) *Cuadernos* ejecuta todos los notebooks de principio a fin. No se ejecuta sola: se lanza a mano desde la pestaña *Actions* de GitHub (*Cuadernos* > *Run workflow*), por ejemplo antes de cada edición del curso. En local, lo mismo se consigue con `pytest --nbmake code`.
 
 ## Licencia
 

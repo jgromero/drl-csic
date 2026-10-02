@@ -1,0 +1,7 @@
+# Elimina las salidas de los cuadernos antes de cada commit
+# Activar una vez con: pre-commit install
+repos:
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.9.1
+    hooks:
+      - id: nbstripout

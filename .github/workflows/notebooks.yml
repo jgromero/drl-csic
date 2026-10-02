@@ -19,11 +19,8 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
-      - name: Instalar dependencias (las mismas que el dev container)
-        run: bash .devcontainer/post-create.sh
-
-      - name: Instalar herramientas de prueba
-        run: pip install --user pytest nbmake
+      - name: Instalar dependencias (las mismas que la imagen Docker) y herramientas de prueba
+        run: pip install -r requirements-dev.txt
 
       - name: Ejecutar los cuadernos
         run: python -m pytest --nbmake --nbmake-timeout=1800 code

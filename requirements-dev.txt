@@ -1,0 +1,6 @@
+# Herramientas para mantener el curso (no se instalan en la imagen)
+-r requirements.txt
+pytest
+nbmake
+nbstripout
+pre-commit

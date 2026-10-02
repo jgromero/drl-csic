@@ -1,0 +1,6 @@
+# Ficheros que no se copian en la imagen
+**/__pycache__
+**/.ipynb_checkpoints
+**/*.pth
+**/*.npy
+**/*.zip

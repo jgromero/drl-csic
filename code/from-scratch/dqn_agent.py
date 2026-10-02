@@ -15,8 +15,6 @@ TAU = 2e-2              # para la actualización suave de los parámetros objeti
 LR = 5e-4               # tasa de aprendizaje (eta)
 UPDATE_EVERY = 4        # cada cuántos pasos se actualiza la red objetivo (C)
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
 class Agent():
     """Interactúa con el entorno y aprende de él."""
 
@@ -34,8 +32,8 @@ class Agent():
         random.seed(seed)
 
         # Red Q
-        self.qnetwork_local = QNetwork(state_size, action_size, seed).to(device)
-        self.qnetwork_target = QNetwork(state_size, action_size, seed).to(device)
+        self.qnetwork_local = QNetwork(state_size, action_size, seed)
+        self.qnetwork_target = QNetwork(state_size, action_size, seed)
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
 
         # Memoria de experiencias
@@ -51,7 +49,7 @@ class Agent():
             state (array_like): estado actual
             eps (float): epsilon, para la selección de acciones ε-greedy
         """
-        state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        state = torch.from_numpy(state).float().unsqueeze(0)
         self.qnetwork_local.eval()
         with torch.no_grad():
             action_values = self.qnetwork_local(state)
@@ -59,7 +57,7 @@ class Agent():
 
         # Selección de acciones ε-greedy
         if random.random() > eps:
-            return np.argmax(action_values.cpu().data.numpy())
+            return np.argmax(action_values.data.numpy())
         else:
             return random.choice(np.arange(self.action_size))
         
@@ -74,16 +72,16 @@ class Agent():
             next_state (array_like): siguiente estado (St+1)
             done (bool): si St+1 es terminal (no se hace bootstrapping desde él)
         """
-        # ------------------- almacenar la experiencia en la memoria ------------------------ #
+        # ------------------- Almacenar la experiencia en la memoria ------------------------ #
         self.memory.add(state, action, reward, next_state, done)
 
-        # ------------------- entrenar con un minilote de experiencias ---------------------- #
+        # ------------------- Entrenar con un minilote de experiencias ---------------------- #
         if len(self.memory) > BATCH_SIZE:
             # Si hay suficientes muestras en la memoria, obtener un subconjunto aleatorio y aprender
             experiences = self.memory.sample()
             self.learn(experiences, GAMMA)
 
-        # ------------------- actualizar la red objetivo ------------------------------------ #
+        # ------------------- Actualizar la red objetivo ------------------------------------ #
         self.t_step = (self.t_step + 1) % UPDATE_EVERY
         if self.t_step == 0:
             # Si se han alcanzado C (UPDATE_EVERY) pasos, mezclar los pesos en la red objetivo
@@ -115,9 +113,9 @@ class Agent():
         Q_expected = self.qnetwork_local(states).gather(1, actions)
 
         # Optimizar (yj-Q(Sj, Aj, w))^2
-        # * calcular la pérdida
+        # * Calcular la pérdida
         loss = F.mse_loss(Q_expected, Q_targets)
-        # * minimizar la pérdida
+        # * Minimizar la pérdida
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
@@ -164,11 +162,11 @@ class ReplayBuffer:
         """Muestrea aleatoriamente un lote de experiencias de la memoria."""
         experiences = random.sample(self.memory, k=self.batch_size)
 
-        states = torch.from_numpy(np.vstack([e.state for e in experiences if e is not None])).float().to(device)
-        actions = torch.from_numpy(np.vstack([e.action for e in experiences if e is not None])).long().to(device)
-        rewards = torch.from_numpy(np.vstack([e.reward for e in experiences if e is not None])).float().to(device)
-        next_states = torch.from_numpy(np.vstack([e.next_state for e in experiences if e is not None])).float().to(device)
-        dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None]).astype(np.uint8)).float().to(device)
+        states = torch.from_numpy(np.vstack([e.state for e in experiences if e is not None])).float()
+        actions = torch.from_numpy(np.vstack([e.action for e in experiences if e is not None])).long()
+        rewards = torch.from_numpy(np.vstack([e.reward for e in experiences if e is not None])).float()
+        next_states = torch.from_numpy(np.vstack([e.next_state for e in experiences if e is not None])).float()
+        dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None]).astype(np.uint8)).float()
   
         return (states, actions, rewards, next_states, dones)
 
