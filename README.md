@@ -10,15 +10,15 @@ Los algoritmos se implementan desde cero con NumPy y PyTorch.
 | Notebook | Algoritmo | Entorno |
 |---|---|---|
 | [01_cliffwalking-qlearning.ipynb](code/from-scratch/01_cliffwalking-qlearning.ipynb) | Q-Learning (tabular) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) |
-| [02_cliffwalking-dqn.ipynb](code/from-scratch/02_cliffwalking-dqn.ipynb) | Deep Q-Learning (DQN) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) |
-| [03_cartpole-dqn.ipynb](code/from-scratch/03_cartpole-dqn.ipynb) | Deep Q-Learning (DQN) | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) |
+| [02_cartpole-dqn.ipynb](code/from-scratch/02_cartpole-dqn.ipynb) | Deep Q-Learning (DQN) | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) |
+| [03_cliffwalking-dqn.ipynb](code/from-scratch/03_cliffwalking-dqn.ipynb) | Deep Q-Learning (DQN) | [CliffWalking-v1](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) |
 | [04_cartpole-reinforce.ipynb](code/from-scratch/04_cartpole-reinforce.ipynb) | REINFORCE | [CartPole-v1](https://gymnasium.farama.org/environments/classic_control/cart_pole/) |
 
 Los dos notebooks de DQN usan los mismos módulos [dqn_agent.py](code/from-scratch/dqn_agent.py) (agente) y [model.py](code/from-scratch/model.py) (red Q).
 
 ### Stable-Baselines3 ([`code/stable-baselines`](code/stable-baselines))
 
-Los mismos problemas, resueltos con las implementaciones de la librería [Stable-Baselines3](https://stable-baselines3.readthedocs.io/).
+Los mismos problemas, resueltos con las implementaciones de la biblioteca [Stable-Baselines3](https://stable-baselines3.readthedocs.io/).
 
 | Notebook | Algoritmo | Entorno |
 |---|---|---|

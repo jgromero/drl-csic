@@ -15,7 +15,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 USER coder
 
-# Librerías del curso (PyTorch solo para CPU, ver requirements.txt)
+# Bibliotecas del curso (PyTorch solo para CPU, ver requirements.txt)
 COPY --chown=coder:coder requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r /tmp/requirements.txt
