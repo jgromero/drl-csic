@@ -71,7 +71,7 @@ Para ejecutar los cuadernos en VS Code, instala las extensiones *Python* y *Jupy
 
 ### Ficheros generados
 
-Al entrenar, los cuadernos guardan los agentes entrenados junto a ellos (`.pth`, `.npy` y `.zip`) para cargarlos en la última sección. Estos ficheros no se incluyen en el repositorio.
+Al entrenar, los cuadernos guardan los agentes entrenados (`.pth`, `.npy` y `.zip`) en una carpeta `agentes/`, junto a cada cuaderno, para cargarlos en la última sección. Esta carpeta no se incluye en el repositorio.
 
 ## Mantenimiento
 
