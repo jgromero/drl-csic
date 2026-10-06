@@ -34,16 +34,16 @@ Todos los notebooks se ejecutan en CPU.
 El repositorio incluye una imagen de Docker con [code-server](https://github.com/coder/code-server) (VS Code en el navegador), Python, Jupyter y todas las dependencias:
 
 1. Instala [Docker](https://www.docker.com/).
-2. Desde la carpeta del repositorio, arranca el contenedor indicando una contraseña de acceso:
+2. Desde la carpeta del repositorio, arranca el contenedor:
 
    ```bash
-   PASSWORD=una-contraseña docker compose up -d --build
+   docker compose up -d --build
    ```
 
-3. Abre <http://localhost:8080> en el navegador e introduce la contraseña.
+3. Abre <http://localhost:8080> en el navegador e introduce la contraseña `curso2026`.
 4. Abre un notebook de `code/` y selecciona el kernel *Python (curso)*.
 
-Los cambios en los notebooks se guardan en las carpetas `code/` e `img/` del equipo. Para usar otro puerto, añade `PORT=8888` delante del comando. Para detener el contenedor:
+Los cambios en los notebooks se guardan en las carpetas `code/` e `img/` del equipo. El contenedor solo es accesible desde el propio equipo. Para usar otro puerto o cambiar la contraseña, añade `PORT=8888` o `PASSWORD=...` delante del comando; si se abre el puerto a la red, cambia siempre la contraseña. Para detener el contenedor:
 
 ```bash
 docker compose down
