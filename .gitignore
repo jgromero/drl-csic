@@ -224,3 +224,6 @@ __marimo__/
 *.pth
 *.npy
 *.zip
+
+# Animaciones de Q-learning (artefactos publicados en claude.ai) y sus copias de seguridad
+animaciones/
