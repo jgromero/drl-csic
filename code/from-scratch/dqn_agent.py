@@ -102,19 +102,19 @@ class Agent():
         # - detach : no retropropagar
         # - max : obtener la acción que maximiza cada muestra del minilote (dim=1)
         # - [0].unsqueeze(1) : transformar la salida en un vector plano
-        Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
+        Q_target_max = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
 
-        # Calcular los objetivos Q para los estados actuales (y)
+        # Calcular los valores de referencia y para los estados actuales
         # - dones : detectar si el episodio ha terminado
-        Q_targets = rewards + (gamma * Q_targets_next * (1 - dones))
+        y = rewards + (gamma * Q_target_max * (1 - dones))
 
-        # Obtener los valores Q esperados con el modelo local (Q(Sj, Aj, w))
+        # Obtener los valores Q de la acción tomada con el modelo local (Q(Sj, Aj, w))
         # - gather : para cada muestra, seleccionar solo el valor de salida de la acción Aj
-        Q_expected = self.qnetwork_local(states).gather(1, actions)
+        Q_local = self.qnetwork_local(states).gather(1, actions)
 
         # Optimizar (yj-Q(Sj, Aj, w))^2
         # * Calcular la pérdida
-        loss = F.mse_loss(Q_expected, Q_targets)
+        loss = F.mse_loss(Q_local, y)
         # * Minimizar la pérdida
         self.optimizer.zero_grad()
         loss.backward()
